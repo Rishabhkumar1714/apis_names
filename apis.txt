@@ -1,0 +1,43 @@
+// Creating the server for the backend
+
+const express=require('express');
+const env=require('dotenv') // this is used to read the data from our env files
+const app=express();
+
+//environment variable 
+env.config()
+
+app.listen(process.env.PORT,()=>{
+    console.log(`Server is running on port ${process.env.PORT} `)
+})
+
+
+
+//Creating our first api
+
+app.get('/',(req,res)=>{
+    res.status(200).json({
+        message:'Hello from the Server'
+    })
+})
+
+//To directly start the server with the help of nodemon
+
+  "start": "nodemon ./src/index.server.js"
+
+
+
+  app.use(express.json())
+
+
+  //Connection with the database
+
+
+  // mongodb connection
+  const mongoose=require('mongoose')
+
+const db=`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.csfkg.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
+
+mongoose.connect(db).then(()=>{
+    console.log(`connection succeful`)
+}).catch((err)=>console.log(err))
